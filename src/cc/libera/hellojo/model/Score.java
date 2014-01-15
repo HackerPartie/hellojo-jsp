@@ -1,5 +1,6 @@
 package cc.libera.hellojo.model;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,20 +8,24 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import antlr.Version;
 
-public class Score {
+
+public class Score implements Serializable{
+	/** 
+	 * a java bean for score saving
+	 */
+	private static final long serialVersionUID = 1L;
 	private Connection con = null;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
 	
-	int score = 0;
+	private int score;
 	
 	/**
 	 * save the answer of a question as a String
 	 * @param questionScore should be "0" or "1"
 	 */
-	public void saveScore(String questionScore) {
+	public void setScore(String questionScore) {
 		try {
 			con = DB.openConnection();
 			pst = con
@@ -29,7 +34,7 @@ public class Score {
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			Logger lgr = Logger.getLogger(Version.class.getName());
+			Logger lgr = Logger.getLogger(Score.class.getName());
 			lgr.log(Level.WARNING, e.getMessage(), e);
 			
 		} finally {
@@ -41,20 +46,21 @@ public class Score {
 	 * calculate a score based on questions 
 	 * @return the score as a String
 	 */
-	public String sumScore() {
+	public int getScore() {
 		try {			
 			con = DB.openConnection();
 			pst = con.prepareStatement("SELECT answer FROM score");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				score += rs.getInt(1);
-			}
-			return Integer.toString(score);
+			}			
+			return score;
+		
 		
 		} catch (SQLException e) {
-			Logger lgr = Logger.getLogger(Version.class.getName());
+			Logger lgr = Logger.getLogger(Score.class.getName());
 			lgr.log(Level.WARNING, e.getMessage(), e);
-			return "No score ...";
+			return -1 ;
 			
 		} finally {
 			DB.closeConnection(rs, pst, con);
@@ -70,7 +76,7 @@ public class Score {
 			pst = con.prepareStatement("TRUNCATE score");
 			pst.executeUpdate();
 		} catch (Exception e) {
-			Logger lgr = Logger.getLogger(Version.class.getName());
+			Logger lgr = Logger.getLogger(Question.class.getName());
 			lgr.log(Level.WARNING, e.getMessage(), e);
 		} finally {
 			DB.closeConnection(rs, pst, con);

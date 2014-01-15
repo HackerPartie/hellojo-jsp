@@ -10,8 +10,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import antlr.Version;
-
 public class DB {
 	private static Connection con = null;
 	private static Properties props = new Properties();
@@ -24,11 +22,11 @@ public class DB {
 
 		try {
 			// load a properties file from class path
-			props.load(Questions.class.getClassLoader().getResourceAsStream(
+			props.load(Question.class.getClassLoader().getResourceAsStream(
 					"database.properties"));
 
 		} catch (IOException e) {
-			Logger lgr = Logger.getLogger(Questions.class.getName());
+			Logger lgr = Logger.getLogger(Question.class.getName());
 			lgr.log(Level.SEVERE, e.getMessage(), e);
 		}
 
@@ -41,7 +39,7 @@ public class DB {
 			con = DriverManager.getConnection(url, user, password);
 			return con;
 		} catch (Exception e) {
-			Logger lgr = Logger.getLogger(Version.class.getName());
+			Logger lgr = Logger.getLogger(DB.class.getName());
 			lgr.log(Level.SEVERE, e.getMessage(), e);
 			return con;
 		}
@@ -66,7 +64,7 @@ public class DB {
 			}
 
 		} catch (SQLException e) {
-			Logger lgr = Logger.getLogger(Version.class.getName());
+			Logger lgr = Logger.getLogger(DB.class.getName());
 			lgr.log(Level.WARNING, e.getMessage(), e);
 		}
 	}

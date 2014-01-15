@@ -8,10 +8,10 @@ public class TestScore {
 	public static void main(String[] args) {
 		Score myScore = new Score();
 		myScore.resetScore();
-		myScore.saveScore("1");
-		myScore.saveScore("1");
-		myScore.saveScore("1");
-		System.out.println(myScore.sumScore());
+		myScore.setScore("1");
+		myScore.setScore("1");
+		myScore.setScore("1");
+		System.out.println(myScore.getScore());		
 
 	}
 

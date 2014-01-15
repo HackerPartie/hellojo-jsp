@@ -15,10 +15,7 @@
     </div>
     <div class="container">
         <p>
-            Now you've got a score of 
-            <%
-            out.print(request.getAttribute("sumScore"));
-            %>
+            Now you've got a score of ${myScore.score}
             which is not bad, but remember many companies have 11 out of 12 all the time.
             
         </p>

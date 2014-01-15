@@ -8,11 +8,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import antlr.Version;
 
 public class Question implements Serializable {
 	/**
-	 * 
+	 * a java bean for questions
 	 */
 	private static final long serialVersionUID = 1L;
 	private Connection con = null;
@@ -60,7 +59,7 @@ public class Question implements Serializable {
 			}
 
 		} catch (SQLException e) {
-			Logger lgr = Logger.getLogger(Version.class.getName());
+			Logger lgr = Logger.getLogger(Question.class.getName());
 			lgr.log(Level.WARNING, e.getMessage(), e);
 
 		} finally {
@@ -88,7 +87,7 @@ public class Question implements Serializable {
 			}
 
 		} catch (SQLException e) {
-			Logger lgr = Logger.getLogger(Version.class.getName());
+			Logger lgr = Logger.getLogger(Question.class.getName());
 			lgr.log(Level.WARNING, e.getMessage(), e);
 
 		} finally {
